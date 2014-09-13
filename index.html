@@ -2,21 +2,125 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>Mood visualisation by Tom Chambers</title>
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
 	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment.min.js"></script>
 	<script src="map.js" async defer></script>
+	<link href='http://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
 	<style>
 		html, body {
 			height: 100%;
+			font-family: 'Josefin Sans', sans-serif;
+			font-size: 30px;
 		}
 		#map {
 			height: 100%;
 		}
+		.mood {
+			float: left;
+			width: 33%;
+		}
+		.controls {
+			float: left;
+			width: 33%;
+		}
+		.finished {
+			display: none;
+			float: left;
+			width: 33%;
+		}
+		.date {
+			float: left;
+			width: 33%;
+		}
+		.banner {
+			text-align: center;
+			position: absolute;
+			bottom: 0;
+			right: 0;
+			left: 0;
+			background: #fff;
+			z-index: 10000;
+			height: 1em;
+			padding: 0.5em;
+		}
+		a {
+			color: #000;
+		}
+		.info-panel {
+			position: absolute;
+			top: 20px;
+			right: 20px;
+			z-index: 2000;
+		}
+		.legend {
+			margin-top: 20px;
+			background: #fff;
+			width: 250px;
+			z-index: 2000;
+			font-size: 0.6em;
+			padding: 8px;
+		}
+		.info {
+			background: #fff;
+			width: 250px;
+			z-index: 2000;
+			font-size: 0.6em;
+			padding: 8px;
+		}
+		.legend .body {
+			display: none;
+		}
+		.legend:hover .body {
+			display: block;
+		}
+		.indicator {
+			width: 100px;
+			height: 20px;
+			background: #000;
+			float: left;
+			margin-right: 10px;
+		}
+		h1 {
+			margin: 0;
+			padding-bottom: 10px;
+			font-size: 1.3em;
+		}
 	</style>
 </head>
 <body>
+	<div class="info-panel">
+		<div class="info">
+			<h1>Mood visualisation</h1>
+			Created by <a href="http://tomchambers.me">Tom Chambers</a> using personal data from <a href="http://moves-app.com">Moves</a> and <a href="http://www.inexika.com/imood">iMoodJournal</a>
+		</div>
+		<div class="legend">
+			<div class="title">Mood legend (hover to view)</div>
+			<div class="body">
+				<hr>
+				<div class="indicator" style="background-color:#000"></div><p>Not recorded</p>
+				<div class="indicator" style="background-color:#00FF1A"></div><p>Very good</p>
+				<div class="indicator" style="background-color:#26ED6D"></div><p>Good</p>
+				<div class="indicator" style="background-color:#83ED52"></div><p>Okay</p>
+				<div class="indicator" style="background-color:#C0ED53"></div><p>So-so</p>
+				<div class="indicator" style="background-color:#21ABED"></div><p>Meh</p>
+				<div class="indicator" style="background-color:#ED7C38"></div><p>Bad</p>
+				<div class="indicator" style="background-color:#ED1C11"></div><p>Very bad</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="banner">
+		<div class="date">23rd December 2013 12:00</div>
+		<div class="controls" id="controls">
+			<a id="fast" href="#">Superfast</a> | <a id="medium" href="#">Fast</a> | <a id="slow" href="#">Slow</a>
+		</div>
+		<div class="finished" id="finished">
+			Finished. <a href="#" id="restart">Restart?</a>
+		</div>
+		<div class="mood">Mood not recorded for date</div>	
+	</div>	
 	<div id="map">
 		
 	</div>
